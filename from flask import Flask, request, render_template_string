@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-#!/usr/bin/env python3
-import sys
-
-def main():
-    print("[*] Suite de herramientas CyberOS activa.")
-    print("[-] Sincronización con Kali Linux verificada exitosamente.")
-
-if __name__ == "__main__":
-    main()
-=======
-from flask import Flask, request, render_template_string
 import sqlite3
 
 app = Flask(__name__)
@@ -45,4 +33,4 @@ def index():
 
 if __name__ == '__main__':
     app.run(port=5000)
->>>>>>> c4b805753a1cbd8e219d103ea7e209b26d3179b6
+
